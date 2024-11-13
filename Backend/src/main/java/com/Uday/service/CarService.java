@@ -82,4 +82,26 @@ public class CarService {
 
         return carRepository.findByUser(user);
     }
+
+    public void deleteCar(Long carId) throws Exception {
+
+        String username = ((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+
+        Car car = carRepository.findById(carId)
+                .orElseThrow(() -> new Exception("Car not found"));
+
+
+        if (!car.getUser().equals(user)) {
+            throw new Exception("Car does not belong to the current user");
+        }
+
+
+        carRepository.delete(car);
+    }
+
 }

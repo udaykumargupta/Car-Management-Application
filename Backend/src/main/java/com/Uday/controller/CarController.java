@@ -34,4 +34,15 @@ public class CarController {
         List<Car> cars = carService.getCarsByUser();
         return ResponseEntity.ok(cars);
     }
+
+    @DeleteMapping("/{carId}")
+    public ResponseEntity<String> deleteCar(@PathVariable Long carId) {
+        try {
+
+            carService.deleteCar(carId);
+            return ResponseEntity.ok("Car deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("Error: " + e.getMessage());
+        }
+    }
 }
