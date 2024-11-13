@@ -21,5 +21,9 @@ public class Car {
     @ElementCollection
     private List<String> imageUrls;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;  // Associate the car with a user
+
 
 }
