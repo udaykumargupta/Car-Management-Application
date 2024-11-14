@@ -148,4 +148,8 @@ public class CarService {
 
         return carRepository.save(car);
     }
+
+    public Car getCarById(Long carId) {
+        return carRepository.findById(carId).orElse(null);
+    }
 }

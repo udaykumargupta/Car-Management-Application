@@ -59,4 +59,13 @@ public class CarController {
             return ResponseEntity.status(400).body(null);
         }
     }
+
+    @GetMapping("/{carId}")
+    public ResponseEntity<Car> getCarById(@PathVariable Long carId) {
+        Car car = carService.getCarById(carId);
+        if (car == null) {
+            return ResponseEntity.notFound().build();  // Return 404 if car is not found
+        }
+        return ResponseEntity.ok(car);
+    }
 }
