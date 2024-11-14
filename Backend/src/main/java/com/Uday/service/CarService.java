@@ -6,6 +6,7 @@ import com.Uday.model.User;
 import com.Uday.repository.CarRepository;
 import com.Uday.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +14,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +32,10 @@ public class CarService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${project.image}")
+    private String path;
+
 
     public Car addCar(CarRequest carRequest) throws Exception {
         if (carRequest.getImages().size() > 10) {
@@ -46,7 +55,7 @@ public class CarService {
 
         List<String> imageUrls = new ArrayList<>();
         for (MultipartFile image : carRequest.getImages()) {
-            String imageUrl = uploadImage(image);
+            String imageUrl = uploadImage(path,image);
             imageUrls.add(imageUrl);
         }
 
@@ -63,10 +72,25 @@ public class CarService {
 
         return carRepository.save(car);
     }
-    private String uploadImage(MultipartFile file) {
-        // Placeholder for uploading the file to a storage (e.g., AWS S3, local file system) and returning the URL
-        // For now, assume this function uploads the image and returns the URL where it’s stored
-        return "uploaded_image_url";
+    private String uploadImage(String path, MultipartFile file) throws IOException {
+
+        //file name
+        String name=file.getOriginalFilename();
+
+        //fullPath
+        String filePath=path+File.separator+name;
+
+        //creating folder if not created
+        File f=new File(path);
+        if(!f.exists()){
+            f.mkdir();
+        }
+
+        //file copy
+        Files.copy(file.getInputStream(),Paths.get(filePath));
+
+        return name;
+
     }
 
     public List<Car> getCarsByUser() throws Exception {
@@ -139,7 +163,7 @@ public class CarService {
             }
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile image : carRequest.getImages()) {
-                String imageUrl = uploadImage(image);  // Custom method to handle image upload
+                String imageUrl = uploadImage(path,image);  // Custom method to handle image upload
                 imageUrls.add(imageUrl);
             }
             car.setImageUrls(imageUrls);
