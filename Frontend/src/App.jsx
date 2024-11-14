@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {Route, Routes } from "react-router-dom";
 import Auth from "./page/Auth/Auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,3 +31,16 @@ function App() {
 }
 
 export default App;
+=======
+import './App.css'
+function App() {
+
+  return (
+      <>
+
+      </>
+  )
+}
+
+export default App
+>>>>>>> 6efc6930cd76932a9056d7757e89d81f03ae1cdf
