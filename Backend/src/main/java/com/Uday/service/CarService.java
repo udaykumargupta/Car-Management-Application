@@ -152,4 +152,13 @@ public class CarService {
     public Car getCarById(Long carId) {
         return carRepository.findById(carId).orElse(null);
     }
+
+    public List<Car> searchCars(String keyword) throws Exception {
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return carRepository.searchUserCars(keyword, user);
+    }
 }

@@ -5,6 +5,7 @@ import com.Uday.model.Car;
 import com.Uday.repository.UserRepository;
 import com.Uday.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,5 +68,19 @@ public class CarController {
             return ResponseEntity.notFound().build();  // Return 404 if car is not found
         }
         return ResponseEntity.ok(car);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Car>> searchCars(@RequestParam("keyword") String keyword) {
+        try {
+            if (keyword == null || keyword.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(null);
+            }
+
+            List<Car> cars = carService.searchCars(keyword);
+            return ResponseEntity.ok(cars);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 }
