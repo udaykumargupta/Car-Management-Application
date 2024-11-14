@@ -104,4 +104,48 @@ public class CarService {
         carRepository.delete(car);
     }
 
+    public Car updateCar(Long carId, CarRequest carRequest) throws Exception {
+
+        String username = ((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+
+        Car car = carRepository.findById(carId)
+                .orElseThrow(() -> new Exception("Car not found"));
+
+
+        if (!car.getUser().equals(user)) {
+            throw new Exception("Car does not belong to the current user");
+        }
+
+
+        if (carRequest.getTitle() != null && !carRequest.getTitle().isEmpty()) {
+            car.setTitle(carRequest.getTitle());
+        }
+        if (carRequest.getDescription() != null && !carRequest.getDescription().isEmpty()) {
+            car.setDescription(carRequest.getDescription());
+        }
+        if (carRequest.getTags() != null && !carRequest.getTags().isEmpty()) {
+            car.setTags(carRequest.getTags());
+        }
+
+
+        if (carRequest.getImages() != null && !carRequest.getImages().isEmpty()) {
+            if (carRequest.getImages().size() > 10) {
+                throw new Exception("Cannot upload more than 10 images.");
+            }
+            List<String> imageUrls = new ArrayList<>();
+            for (MultipartFile image : carRequest.getImages()) {
+                String imageUrl = uploadImage(image);  // Custom method to handle image upload
+                imageUrls.add(imageUrl);
+            }
+            car.setImageUrls(imageUrls);
+        }
+
+
+        return carRepository.save(car);
+    }
 }

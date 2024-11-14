@@ -7,6 +7,7 @@ import com.Uday.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,6 +44,19 @@ public class CarController {
             return ResponseEntity.ok("Car deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body("Error: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/{carId}")
+    public ResponseEntity<Car> updateCar(@PathVariable Long carId,
+                                         @RequestBody CarRequest carRequest
+                                         ) {
+        try {
+
+            Car updatedCar = carService.updateCar(carId, carRequest);
+            return ResponseEntity.ok(updatedCar);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(null);
         }
     }
 }
