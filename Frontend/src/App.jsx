@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "./State/Auth/Action";
 import Home from "./page/home/Home";
+import Navbar from "./page/Navbar/Navbar";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
     <>
       {auth.user? (
         <div>
-          
+          <Navbar/>
           <Routes>
           <Route path="/" element={<Home/>} />
           </Routes>
