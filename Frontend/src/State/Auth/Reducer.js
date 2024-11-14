@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import{ REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_REQUEST, GET_USER_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS,  LOGOUT, GET_USER_SUCCESS, GET_USER_FAILURE } from "./ActionTypes";
-=======
-import{ REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_REQUEST, GET_USER_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS,  LOGOUT } from "./ActionTypes";
->>>>>>> 6efc6930cd76932a9056d7757e89d81f03ae1cdf
 const initialState={
     user:null,
     loading:false,
@@ -24,17 +20,11 @@ const authReducer=(state=initialState,action)=>{
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             return{...state,loading:false,error:null,jwt:action.payload}
-<<<<<<< HEAD
         case GET_USER_SUCCESS:
             return{...state,loading:false,error:null,user:action.payload}
         case REGISTER_FAILURE:
         case LOGIN_FAILURE:
         case GET_USER_FAILURE:
-=======
-
-        case REGISTER_FAILURE:
-        case LOGIN_FAILURE:
->>>>>>> 6efc6930cd76932a9056d7757e89d81f03ae1cdf
             return{...state,loading:false,error:action.payload }
 
         case LOGOUT:{
