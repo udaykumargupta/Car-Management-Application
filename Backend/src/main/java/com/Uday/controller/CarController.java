@@ -50,7 +50,7 @@ public class CarController {
 
     @PutMapping("/{carId}")
     public ResponseEntity<Car> updateCar(@PathVariable Long carId,
-                                         @RequestBody CarRequest carRequest
+                                         @ModelAttribute CarRequest carRequest
                                          ) {
         try {
 

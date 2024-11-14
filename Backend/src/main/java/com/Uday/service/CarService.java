@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CarService {
@@ -77,8 +78,12 @@ public class CarService {
         //file name
         String name=file.getOriginalFilename();
 
+        //generating randomName
+        String randomID= UUID.randomUUID().toString();
+        String filename1=randomID.concat(name.substring(name.lastIndexOf(".")));
+
         //fullPath
-        String filePath=path+File.separator+name;
+        String filePath=path+File.separator+filename1;
 
         //creating folder if not created
         File f=new File(path);
@@ -161,15 +166,19 @@ public class CarService {
             if (carRequest.getImages().size() > 10) {
                 throw new Exception("Cannot upload more than 10 images.");
             }
+
+
+            car.setImageUrls(new ArrayList<>());
+
+
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile image : carRequest.getImages()) {
-                String imageUrl = uploadImage(path,image);  // Custom method to handle image upload
+                String imageUrl = uploadImage(path,image);
                 imageUrls.add(imageUrl);
             }
+
             car.setImageUrls(imageUrls);
         }
-
-
         return carRepository.save(car);
     }
 
