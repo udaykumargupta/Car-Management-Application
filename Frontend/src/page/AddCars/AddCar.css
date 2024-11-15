@@ -1,0 +1,113 @@
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); /* Dark background */
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form Fields */
+  .modal div {
+    margin-bottom: 12px;
+  }
+  
+  .modal label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 600;
+  }
+  
+  .modal input[type="text"],
+  .modal textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+  
+  .modal input[type="text"]:focus,
+  .modal textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .modal textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .modal input[type="file"] {
+    padding: 8px;
+  }
+  
+  .modal button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .modal button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .modal button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .modal button {
+    padding: 8px 16px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  
+  .modal button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Error Message */
+  .modal .error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 12px;
+  }
+  

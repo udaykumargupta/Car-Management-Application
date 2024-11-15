@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getUser } from "./State/Auth/Action";
 import Home from "./page/home/Home";
 import Navbar from "./page/Navbar/Navbar";
+import AddCars from "./page/AddCars/AddCars";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Navbar/>
           <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/addcars" element={<AddCars/>}/>
           </Routes>
         </div>
       ):<Auth/>}
